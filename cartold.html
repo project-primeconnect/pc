@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart</title>
+    <link rel="stylesheet" href="event1.css">
+    <style>
+        .cart-items {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.cart-items h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+}
+
+.cart-item h3 {
+    font-size: 18px;
+    margin: 0;
+}
+
+.cart-item p {
+    font-size: 16px;
+    color: #5856D6;
+    font-weight: bold;
+    margin: 0;
+}
+
+.cart-item button {
+    background-color: #ff4444;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.cart-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 2px solid #5856D6;
+}
+
+.cart-total h3 {
+    font-size: 22px;
+    margin: 0;
+}
+
+#checkout-btn {
+    background-color: #5856D6;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#checkout-btn:hover {
+    background-color: #4a45ba;
+}
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">logo</div>
+        <nav>
+            <ul>
+                <li><a href="#">home</a></li>
+            </ul>
+        </nav>
+        <div class="search">
+            <form>
+                <input type="text" placeholder="search">
+                <input type="text" placeholder="destination">
+            </form>       
+        </div>
+        <div class="cart-icon">
+            <a href="cart.html">
+                <img src="https://cdn-icons-png.flaticon.com/512/4290/4290854.png" alt="Cart">
+                <span class="cart-count">0</span>
+            </a>
+        </div>
+    </header>
+
+    <section class="cart-items">
+        <h2>Your Cart</h2>
+        <div id="cart-container"></div>
+        <!-- <div class="cart-total">
+            <h3>Total: ₹<span id="total-amount">0</span></h3>
+            <button id="checkout-btn">Proceed to Checkout</button>
+        </div> -->
+        
+<div class="cart-total">
+    <h3>Total: ₹<span id="total-amount">0</span></h3>
+    <button id="checkout-btn" onclick="window.location.href='checkout.html'" >Proceed to Checkout</button>
+    
+</div>
+    </section>
+
+    <script src="script.js"></script>
+    <script>
+        // Display cart items
+        function displayCartItems() {
+            const cart = JSON.parse(localStorage.getItem('cart'));
+            const cartContainer = document.getElementById('cart-container');
+            const totalAmountElement = document.getElementById('total-amount');
+            
+            if (cart.length === 0) {
+                cartContainer.innerHTML = '<p>Your cart is empty</p>';
+                totalAmountElement.textContent = '0';
+                return;
+            }
+            
+            let total = 0;
+            cartContainer.innerHTML = '';
+            
+            cart.forEach((item, index) => {
+                const itemElement = document.createElement('div');
+                itemElement.className = 'cart-item';
+                itemElement.innerHTML = `
+                    <h3>${item.name}</h3>
+                    <p>₹${item.price}</p>
+                    <button onclick="removeFromCart(${index})">Remove</button>
+                `;
+                cartContainer.appendChild(itemElement);
+                total += item.price;
+            });
+            
+            totalAmountElement.textContent = total;
+        }
+       
+        // Remove item from cart
+        function removeFromCart(index) {
+            const cart = JSON.parse(localStorage.getItem('cart'));
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            displayCartItems();
+            updateCartCount();
+        }
+        
+        // Checkout button
+        document.getElementById('checkout-btn').addEventListener('click', function() {
+            alert('Proceeding to checkout!');
+            // Here you would typically redirect to a checkout page
+        });
+        
+        // Initialize cart display
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartCount();
+            displayCartItems();
+        });
+    </script>
+</body>
+</html>

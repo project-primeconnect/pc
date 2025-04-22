@@ -1,0 +1,484 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - PrimeConnect</title>
+    <style>
+        
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Kantumruy+Pro:ital,wght@0,100..700;1,100..700&family=Noto+Sans+Gurmukhi:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Kantumruy+Pro:ital,wght@0,100..700;1,100..700&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Noto+Sans+Gurmukhi:wght@100..900&display=swap');
+
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    
+}
+p{
+    font-family: 'Kantumruy Pro', sans-serif;
+}
+body {
+    background-color: #f9f9f9;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+.form-container, .info-container {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+}
+
+.form-container {
+    flex: 1 1 600px;
+}
+
+.info-container {
+    flex: 1 1 300px;
+}
+
+h1 {
+    color: #2d3436;
+    margin-bottom: 1.5rem;
+    font-size: 2.2rem;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+label {
+    font-weight: 600;
+    color: #2d3436;
+}
+
+input, textarea {
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    width: 100%;
+}
+
+textarea {
+    resize: none;
+}
+
+button[type="submit"] {
+    background-color: #5856D6;
+    color: white;
+    padding: 1rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s ease;
+    width: 150px;
+}
+
+button[type="submit"]:hover {
+    background-color: #5856D6;
+}
+
+.info-container div {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #eee;
+}
+
+.info-container div:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.info-container strong {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #2d3436;
+}
+
+.info-container a {
+    background-color: #ffffff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.info-container a:hover {
+    background-color: #f8f8fa;
+}
+
+
+
+.logo {
+    font-size: 24px;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+}
+
+
+    /* Improved Responsive Styles */
+    @media (max-width: 768px) {
+        .container {
+            flex-direction: column;
+            margin: 1rem auto;
+        }
+
+        .form-container, 
+        .info-container {
+            width: 100%;
+            padding: 1.5rem;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+        }
+
+    }
+
+    @media (max-width: 480px) {
+        input, 
+        textarea, 
+        button[type="submit"] {
+            font-size: 0.9rem;
+        }
+
+    }
+
+.logo {
+    font-size: 24px;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+footer {
+  background: linear-gradient(to bottom, #e6e6fa, #ffffff);
+  padding: 60px 0;
+  font-family: Arial, sans-serif;
+  min-height: 250px;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 0 20px;
+}
+
+.footer-section {
+  flex: 1;
+  min-width: 250px;
+  margin-bottom: 20px;
+}
+
+.footer-section h3 {
+  font-size: 18px;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 20px;
+}
+
+.footer-section ul li a {
+  text-decoration: none;
+  color: #555;
+  transition: color 0.3s;
+}
+
+.footer-section ul li a:hover {
+  color: #000;
+}
+
+.social-icons {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.social-icons img {
+  width: 32px;
+  height: 32px;
+  transition: transform 0.3s;
+}
+
+.social-icons img:hover {
+  transform: scale(1.1);
+}
+
+.store-badges {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.store-badges img {
+  height: 40px;
+  width: auto;
+  transition: transform 0.3s;
+}
+
+.store-badges img:hover {
+  transform: scale(1.05);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+  .search-bar input {
+    width: 180px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header,
+  .service-card,
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .search-bar {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .search-bar input {
+    width: 100%;
+  }
+
+  .hero-text h1 {
+    font-size: 2rem;
+  }
+
+  .hero-text h3 {
+    font-size: 1.4rem;
+  }
+
+  .service-card img {
+    width: 100px;
+  }
+
+  .store-badges {
+    justify-content: center;
+  }
+
+  .footer-section {
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-text h1 {
+    font-size: 1.6rem;
+  }
+
+  .hero-text h3 {
+    font-size: 1.2rem;
+  }
+
+  .service-info h4 {
+    font-size: 1rem;
+  }
+
+  .service-info p {
+    font-size: 0.9rem;
+  }
+
+  .service-info button {
+    font-size: 0.9rem;
+  }
+
+  .store-badges img {
+    height: 35px;
+  }
+}
+@media (max-width: 768px) {
+  .social-icons {
+    justify-content: center;
+  }
+  .store-badges {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .social-icons {
+    justify-content: center;
+  }
+  .store-badges {
+    justify-content: center;
+  }
+}
+@media screen and (max-width: 768px) {
+    .card {
+        width: 100%; /* Make sure the card takes full width */
+        margin-bottom: 10px; /* Add margin to prevent overlap */
+    }
+    .navbutton {
+        padding: 12px 25px;
+        font-size: 16px;
+        width: 100%; /* Ensure button adjusts well in smaller screens */
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <h1>Contact Us</h1>
+            <form id="contactForm">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" placeholder="Enter full name" required>
+
+                <label for="email">Email Address</label>
+                <input type="email" id="email" placeholder="Enter your email address" required>
+
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" placeholder="Enter phone number" required>
+
+                <label for="message">Message</label>
+                <textarea id="message" rows="4" placeholder="Enter your message" required></textarea>
+
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+
+        <div class="info-container">
+            <div>
+                <strong>Need help?</strong>
+                <p>For immediate help regarding your bookings, please visit our Help Center.</p>
+                <a href="#">Open Help Center</a>
+            </div>
+            <div>
+                <strong>Still facing issues?</strong>
+                <p>Email us at resolve@primeconnect.com. We'll respond within 24-48 hours.</p>
+            </div>
+            <div>
+                <strong>Media inquiries</strong>
+                <p>Email us at press@primeconnect.com.</p>
+            </div>
+            <div>
+                <strong>Our office addresses</strong>
+                <p>View a list of our office addresses by clicking below.</p>
+                <a href="#">View addresses</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+      <div class="footer-container">
+          <div class="footer-section company">
+              <h3>Company</h3>
+              <ul>
+                  <li><a href="aboutus.html">About us</a></li>
+                  <li><a href="termscond.html">Terms & Conditions</a></li>
+                  <li><a href="antidis.html">Anti-discrimination policy</a></li>
+                  <li><a href="#">Careers</a></li>
+              </ul>
+          </div>
+  
+          <div class="footer-section customer">
+              <h3>For Customer</h3>
+              <ul>
+                  <li><a href="#title">PrimeConnect reviews</a></li>
+                  <li><a href="contactus.html">Contact us</a></li>
+              </ul>
+          </div>
+          <div class="footer-section customer">
+              <h3>For Partners</h3>
+              <ul>
+                  <li><a href="servicepro.html">Register as a professional</a></li>
+                 
+              </ul>
+          </div>
+  
+          <div class="footer-section social">
+            <h3>Social Links</h3>
+            <div class="social-icons">
+              <a href="#"><img src="https://cdn2.iconfinder.com/data/icons/social-icons-33/128/Instagram-128.png" alt="Instagram"></a>
+              <a href="#"><img src="https://cdn3.iconfinder.com/data/icons/social-media-black-white-2/512/BW_Twitter_glyph_svg-128.png"alt="Twitter"></a>
+             <a href="#"><img src="https://cdn2.iconfinder.com/data/icons/social-media-applications/64/social_media_applications_14-linkedin-128.png" alt="LinkedIn"></a>
+             <a href="#"><img src="https://cdn3.iconfinder.com/data/icons/logos-brands-3/24/logo_brand_brands_logos_playstore_google-128.png" alt="Play Store"></a>
+            </div>
+            
+          </div>
+      </div>
+  </footer>
+  </footer>
+<!-- 
+    <script src="script.js"></script> -->
+</body>
+<script>
+  document.getElementById('contactForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const message = document.getElementById('message').value.trim();
+
+      // Validation
+      if (!name || !email || !phone || !message) {
+          alert('Please fill in all fields');
+          return;
+      }
+
+      if (!/^\d{10}$/.test(phone)) {
+          alert('Please enter a valid 10-digit phone number');
+          return;
+      }
+
+      // Store contact data in localStorage
+      const contact = {
+          name: name,
+          email: email,
+          phone: phone,
+          message: message,
+          timestamp: new Date().toISOString()
+      };
+
+      let contacts = JSON.parse(localStorage.getItem('primeConnectContacts')) || [];
+      contacts.push(contact);
+      localStorage.setItem('primeConnectContacts', JSON.stringify(contacts));
+
+      alert('Thank you for contacting us! We will get back to you soon.');
+      this.reset(); // Clear the form
+  });
+</script>
+</html>
+
+
+
+
+
+

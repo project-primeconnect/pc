@@ -1,0 +1,284 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <link rel="stylesheet" href="common.css">
+    <style>
+        .checkout-container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        
+        .checkout-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+        
+        .step {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            color: #777;
+            border-bottom: 2px solid #ddd;
+        }
+        
+        .step.active {
+            color: #5856D6;
+            border-bottom: 2px solid #5856D6;
+            font-weight: bold;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        .form-group input, 
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        
+        .form-group textarea {
+            height: 100px;
+        }
+        
+        .payment-summary {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+        }
+        
+        .payment-summary h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .summary-row.total {
+            font-weight: bold;
+            border-bottom: none;
+            font-size: 18px;
+        }
+        
+        button[type="button"] {
+            background-color: #5856D6;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            max-width: 300px;
+            display: block;
+            margin: 30px auto 0;
+        }
+        
+        button[type="button"]:hover {
+            background-color: #4a45ba;
+        }
+        
+        .order-item {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+    </style>
+</head>
+<body>
+    <section class="checkout-container">
+        <h2>Checkout</h2>
+        <div class="checkout-steps">
+            <div class="step active" onclick="navigateToStep(1)">1. Shipping Information</div>
+            <div class="step" onclick="navigateToStep(2)">2. Payment</div>
+            <div class="step" onclick="navigateToStep(3)">3. Confirmation</div>
+        </div>
+        
+        <form id="checkout-form">
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="address">Shipping Address</label>
+                <textarea id="address" required></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" required>
+            </div>
+            
+            <div class="payment-summary">
+                <h3>Order Summary</h3>
+                <div id="order-items"></div>
+                
+                <h3>Payment Summary</h3>
+                <div class="summary-row">
+                    <span>Item total</span>
+                    <span>₹<span id="item-total">0</span></span>
+                </div>
+                <div class="summary-row">
+                    <span>GST (18%)</span>
+                    <span>₹<span id="gst-amount">0</span></span>
+                </div>
+                <div class="summary-row">
+                    <span>Platform fee</span>
+                    <span>₹100</span>
+                </div>
+                <div class="summary-row">
+                    <span>Delivery fee</span>
+                    <span>₹10</span>
+                </div>
+                <div class="summary-row total">
+                    <span>Total</span>
+                    <span>₹<span id="total-amount">0</span></span>
+                </div>
+            </div>
+            
+            <button type="button" onclick="proceedToPayment()">Proceed to Payment</button>
+        </form>
+    </section>
+
+    <script>
+        // Display order items and calculate payment summary
+        function displayOrderSummary() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const orderItems = document.getElementById('order-items');
+            const itemTotalElement = document.getElementById('item-total');
+            const gstAmountElement = document.getElementById('gst-amount');
+            const totalAmountElement = document.getElementById('total-amount');
+
+            if (!cart || cart.length === 0) {
+                window.location.href = 'cart.html';
+                return;
+            }
+
+            let itemTotal = 0;
+            orderItems.innerHTML = '';
+
+            cart.forEach(item => {
+                // Ensure price is treated as a number
+                const price = typeof item.price === 'string' ?
+                                    parseFloat(item.price.replace(/[^0-9.]/g, '')) :
+                                    Number(item.price);
+
+                const itemElement = document.createElement('div');
+                itemElement.className = 'order-item';
+                itemElement.innerHTML = `
+                    <p>${item.name} - ₹${price.toFixed(2)}</p>
+                `;
+                orderItems.appendChild(itemElement);
+                itemTotal += price;
+            });
+
+            // Calculate GST (18% of item total)
+            const gstAmount = itemTotal * 0.18;
+            const platformFee = 100;
+            const deliveryFee = 10;
+            const totalAmount = itemTotal + gstAmount + platformFee + deliveryFee;
+            
+            // Update all amounts
+            itemTotalElement.textContent = itemTotal.toFixed(2);
+            gstAmountElement.textContent = gstAmount.toFixed(2);
+            totalAmountElement.textContent = totalAmount.toFixed(2);
+            
+            // Store the total in localStorage for the payment page
+            localStorage.setItem('cartTotal', totalAmount.toFixed(2));
+        }
+       
+        // Proceed to payment page
+        function proceedToPayment() {
+            const form = document.getElementById('checkout-form');
+            if (form.checkValidity()) {
+                // Save shipping info to localStorage
+                const shippingInfo = {
+                    name: document.getElementById('name').value,
+                    email: document.getElementById('email').value,
+                    address: document.getElementById('address').value,
+                    phone: document.getElementById('phone').value
+                };
+                localStorage.setItem('shippingInfo', JSON.stringify(shippingInfo));
+                
+                window.location.href = 'payment.html';
+            } else {
+                form.reportValidity();
+            }
+        }
+        
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            displayOrderSummary();
+        });
+        function navigateToStep(stepNumber) {
+    // Determine current page
+    const currentPage = window.location.pathname.split('/').pop();
+    
+    // Don't navigate if clicking the current active step
+    if ((currentPage === 'checkout.html' && stepNumber === 1) ||
+        (currentPage === 'payment.html' && stepNumber === 2) ||
+        (currentPage === 'confirmation.html' && stepNumber === 3)) {
+        return;
+    }
+    
+    // Navigation logic
+    switch(stepNumber) {
+        case 1:
+            // Only allow going back to checkout from payment
+            if (currentPage === 'payment.html' || currentPage === 'confirmation.html') {
+                window.location.href = 'checkout.html';
+            }
+            break;
+        case 2:
+            // Only allow going to payment from checkout or back from confirmation
+            if (currentPage === 'checkout.html') {
+                // Validate form before proceeding
+                const form = document.getElementById('checkout-form');
+                if (form.checkValidity()) {
+                    proceedToPayment(); // Use your existing function
+                } else {
+                    form.reportValidity();
+                }
+            } else if (currentPage === 'confirmation.html') {
+                window.location.href = 'payment.html';
+            }
+            break;
+        case 3:
+            // Only allow going to confirmation from payment
+            if (currentPage === 'payment.html') {
+                proceedToPay(); // Use your existing function
+            }
+            break;
+    }
+}
+    </script>
+</body>
+</html>

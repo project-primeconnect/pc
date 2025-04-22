@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation</title>
+    <link rel="stylesheet" href="common.css">
+</head>
+<body>
+    <section class="confirmation-container">
+        <div class="checkout-steps">
+            <div class="step completed" onclick="navigateToStep(1)">1. Shipping Information</div>
+            <div class="step completed" onclick="navigateToStep(2)">2. Payment</div>
+            <div class="step completed active" onclick="navigateToStep(3)">3. Confirmation</div>
+        </div>
+        
+        <div class="confirmation-message">
+            <img src="https://cdn-icons-png.flaticon.com/128/6631/6631092.png" alt="Success">
+            <h2>Thank You For Your Order!</h2>
+            <p>Your order number is: <strong id="order-number"></strong></p>
+            <p>We've sent a confirmation email to <strong id="confirmation-email"></strong></p>
+            
+            <div class="order-details">
+                <h3>Order Details</h3>
+                <div id="confirmation-items"></div>
+                <div class="order-total">
+                    <p>Total: ₹<span id="confirmation-total">0</span></p>
+                </div>
+            </div>
+            
+            <div class="shipping-details">
+                <h3>Shipping To</h3>
+                <div id="shipping-address">
+                    <!-- Address will be inserted here line by line -->
+                </div>
+            </div>
+            
+            <button onclick="window.location.href='index.html'">Back to Home</button>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+    <script>
+        // Display confirmation details
+        function displayConfirmationDetails() {
+    const shippingInfo = JSON.parse(localStorage.getItem('shippingInfo')) || {};
+    const orderNumber = localStorage.getItem('orderNumber') || 'TEST-123';
+    
+    // If no order number, check if we have cart items
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    if (cart.length === 0) {
+        alert('No order items found. Redirecting to home page.');
+        window.location.href = 'index.html';
+        return;
+    }
+            
+            // Display order info
+            document.getElementById('order-number').textContent = orderNumber;
+            document.getElementById('confirmation-email').textContent = shippingInfo.email;
+            
+            // Format shipping address line by line
+            const shippingAddress = document.getElementById('shipping-address');
+            shippingAddress.innerHTML = `
+                <p><strong>Name:</strong> ${shippingInfo.name}</p>
+                <p><strong>Email:</strong> ${shippingInfo.email}</p>
+                <p><strong>Address:</strong> ${shippingInfo.address}</p>
+                <p><strong>Phone:</strong> ${shippingInfo.phone}</p>
+            `;
+            
+            // Display order items
+            const confirmationItems = document.getElementById('confirmation-items');
+            let itemTotal = 0;
+            confirmationItems.innerHTML = '';
+            
+            cart.forEach(item => {
+                const itemElement = document.createElement('div');
+                itemElement.className = 'order-item';
+                itemElement.innerHTML = `
+                    <p>${item.name} - ₹${item.price}</p>
+                `;
+                confirmationItems.appendChild(itemElement);
+                itemTotal += item.price;
+            });
+            
+            // Calculate the complete total with all fees
+            const gstAmount = itemTotal * 0.18;
+            const platformFee = 100;
+            const deliveryFee = 10;
+            const completeTotal = itemTotal + gstAmount + platformFee + deliveryFee;
+            
+            // Display the complete total amount
+            document.getElementById('confirmation-total').textContent = completeTotal.toFixed(2);
+        }
+        
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            displayConfirmationDetails();
+        });
+        function navigateToStep(stepNumber) {
+    // Determine current page
+    const currentPage = window.location.pathname.split('/').pop();
+    
+    // Don't navigate if clicking the current active step
+    if ((currentPage === 'checkout.html' && stepNumber === 1) ||
+        (currentPage === 'payment.html' && stepNumber === 2) ||
+        (currentPage === 'confirmation.html' && stepNumber === 3)) {
+        return;
+    }
+    
+    // Navigation logic
+    switch(stepNumber) {
+        case 1:
+            // Only allow going back to checkout from payment
+            if (currentPage === 'payment.html' || currentPage === 'confirmation.html') {
+                window.location.href = 'checkout.html';
+            }
+            break;
+        case 2:
+            // Only allow going to payment from checkout or back from confirmation
+            if (currentPage === 'checkout.html') {
+                // Validate form before proceeding
+                const form = document.getElementById('checkout-form');
+                if (form.checkValidity()) {
+                    proceedToPayment(); // Use your existing function
+                } else {
+                    form.reportValidity();
+                }
+            } else if (currentPage === 'confirmation.html') {
+                window.location.href = 'payment.html';
+            }
+            break;
+        case 3:
+            // Only allow going to confirmation from payment
+            if (currentPage === 'payment.html') {
+                proceedToPay(); // Use your existing function
+            }
+            break;
+    }
+}
+    </script>
+</body>
+</html>

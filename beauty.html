@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Salon for Women</title>
+  <link rel="stylesheet" href="beauty.css">
+</head>
+<body>
+  <header class="header">
+    <!-- Logo and Home -->
+    <div class="logo-home">
+      <div class="logo">
+          <img src="logo1.png" alt="Company Logo" class="logo">
+      </div>
+      <a href="index.html" class="home-link">home</a>
+    </div>
+  
+    <!-- Search Bar -->
+    <div class="search-container">
+      <input type="text" id="searchInput" placeholder="Search services...">
+      <button id="searchButton">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20px" height="20px">
+          <path d="M10 2a8 8 0 0 1 6.32 12.906l5.387 5.387a1 1 0 0 1-1.414 1.414l-5.387-5.387A8 8 0 1 1 10 2zm0 2a6 6 0 1 0 0 12 6 6 0 0 0 0-12z"/>
+        </svg>
+      </button>
+    </div>
+  
+    <!-- Icons -->
+    <div class="icons">
+      <!-- Cart Icon -->
+      <a href="cart.html" class="cart-icon icon-link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24px" height="24px">
+          <path d="M10 20a2 2 0 1 1 0 4 2 2 0 0 1 0-4Zm8 0a2 2 0 1 1 0 4 2 2 0 0 1 0-4ZM4.1 2a1 1 0 0 1 .9.55l.04.1 2.17 6.34h11.4a2 2 0 0 1 1.94 2.52l-.03.1L18.13 16a1 1 0 0 1-.84.63H8.4l-.27-.01-1.68 4.9a1 1 0 0 1-1.9-.64l.03-.10L6.53 17H4a1 1 0 0 1-.97-1.23l.03-.1.9-2.64L2.64 3.6A1 1 0 0 1 2 2.96V2a1 1 0 0 1 1-1h1.1Zm3.9 8h10.13l1.15 3.38L18.12 14H7.52L6.36 11H8Z"/>
+        </svg>
+        <span class="cart-count">0</span>
+      </a>
+      <!-- Profile Icon -->
+      <a href="login.html">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="24px" height="24px">
+          <path d="M12 2a7 7 0 0 1 7 7 7 7 0 0 1-7 7 7 7 0 0 1-7-7 7 7 0 0 1 7-7Zm0 2a5 5 0 0 0-5 5 5 5 0 0 0 5 5 5 5 0 0 0 5-5 5 5 0 0 0-5-5Zm0 12c4.41 0 8 3.59 8 8H4c0-4.41 3.59-8 8-8Zm0 2c-3.25 0-5.91 2.37-6.7 5.5h13.4c-.79-3.13-3.45-5.5-6.7-5.5Z"/>
+        </svg>
+      </a>
+    </div>
+  </header>
+  
+  
+  <!-- Hero Section -->
+  <section class="hero">
+   
+    <div class="hero-image">
+        
+      <img src="https://res.cloudinary.com/urbanclap/image/upload/t_high_res_template,q_auto:low,f_auto/w_1232,dpr_1,fl_progressive:steep,q_auto:low,f_auto,c_limit/images/supply/customer-app-supply/1727188851693-7bfbad.jpeg" alt="Bright and glowing skin">
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section class="services">
+    <div class="service-card">
+      <img src="https://res.cloudinary.com/urbanclap/image/upload/t_high_res_template/w_233,dpr_1,fl_progressive:steep,q_auto:low,f_auto,c_limit/images/growth/luminosity/1732010872837-c503b2.jpeg" alt="Head Massage">
+      <div class="service-info">
+        <h4>Basic Makeup package </h4>
+        <p>Base & eye makup with top brands like kryolan/LA girl</p>
+        <div class="details">
+          <span class="reviews">⭐⭐⭐⭐⭐ <small>(4.8)</small></span>
+          <div class="price"> 
+            <p>₹2099</p>
+          </div>
+        </div>
+       <!-- Add to Cart Button -->
+<!-- Add to Cart Button -->
+<button onclick="addToCart('Basic Makeup package ',120000)">Add to Cart</button>
+
+  
+      </div>
+    </div>
+    <div class="service-card">
+      <img src="https://res.cloudinary.com/urbanclap/image/upload/t_high_res_template,q_auto:low,f_auto/w_128,dpr_1,fl_progressive:steep,q_auto:low,f_auto,c_limit/images/growth/luminosity/1696833204861-476f37.jpeg" alt="Head Massage">
+      <div class="service-info">
+        <h4>Curls & Waves</h4>
+        <p>Soft Curls or waves for natural,voluminous hairstyle</p>
+        <div class="details">
+          <span class="reviews">⭐⭐⭐⭐⭐ <small>(4.8)</small></span>
+          <div class="price"> 
+            <p>₹1099</p>
+          </div>
+        </div>
+        <button onclick="addToCart('Curls & Waves',1099)">Add to Cart</button>
+  
+  
+      </div>
+    </div>
+    <div class="service-card">
+      <img src="https://res.cloudinary.com/urbanclap/image/upload/t_high_res_template,q_auto:low,f_auto/w_128,dpr_1,fl_progressive:steep,q_auto:low,f_auto,c_limit/images/growth/luminosity/1735901694078-dc75f8.jpeg" alt="Head Massage">
+      <div class="service-info">
+        <h4>Eye Makeup</h4>
+        <p>Acheive Your Desired eye Makeup look,from basic to advanced</p>
+        <div class="details">
+          <span class="reviews">⭐⭐⭐⭐⭐ <small>(5.0)</small></span>
+          <div class="price"> 
+            <p>₹999</p>
+          </div>
+        </div>
+        <button onclick="addToCart('Eye Makeup ',999)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="service-card">
+      <img src="https://res.cloudinary.com/urbanclap/image/upload/t_high_res_template,q_auto:low,f_auto/w_128,dpr_1,fl_progressive:steep,q_auto:low,f_auto,c_limit/images/growth/luminosity/1732012361473-5b7135.jpeg" alt="Head Massage">
+      <div class="service-info">
+        <h4>Luxe Makeup Package</h4>
+        <p>Flawless Longlasting Makeup for all day events with PAC & LA girl</p>
+        <div class="details">
+          <span class="reviews">⭐⭐⭐⭐⭐ <small>(4.8)</small></span>
+          <div class="price"> 
+            <p>₹5099</p>
+          </div>
+        </div>
+        <button onclick="addToCart('Luxe Makeup Package',5099)">Add to Cart</button>
+  
+      </div>
+    </div>
+  </section>
+  <footer>
+    <div class="footer-container">
+        <div class="footer-section company">
+            <h3>Company</h3>
+            <ul>
+                <li><a href="aboutus.html">About us</a></li>
+                <li><a href="termscond.html">Terms & Conditions</a></li>
+                <li><a href="antidis.html">Anti-discrimination policy</a></li>
+                <li><a href="#">Careers</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-section customer">
+            <h3>For Customer</h3>
+            <ul>
+                <li><a href="#title">PrimeConnect reviews</a></li>
+                <li><a href="contactus.html">Contact us</a></li>
+                <li><a href="privacypolicy.html">Privacy policy</a></li>
+            </ul>
+        </div>
+        <div class="footer-section customer">
+            <h3>For Partners</h3>
+            <ul>
+                <li><a href="servicepro.html">Register as a professional</a></li>
+               
+            </ul>
+        </div>
+
+        <div class="footer-section social">
+          <h3>Social Links</h3>
+          <div class="social-icons">
+            <a href="#"><img src="https://cdn2.iconfinder.com/data/icons/social-icons-33/128/Instagram-128.png" alt="Instagram"></a>
+            <a href="#"><img src="https://cdn3.iconfinder.com/data/icons/social-media-black-white-2/512/BW_Twitter_glyph_svg-128.png"alt="Twitter"></a>
+           <a href="#"><img src="https://cdn2.iconfinder.com/data/icons/social-media-applications/64/social_media_applications_14-linkedin-128.png" alt="LinkedIn"></a>
+           <a href="#"><img src="https://cdn3.iconfinder.com/data/icons/logos-brands-3/24/logo_brand_brands_logos_playstore_google-128.png" alt="Play Store"></a>
+          </div>
+          
+        </div>
+    </div>
+</footer>
+<script src="script.js"></script>
+<script src="search.js"></script>
+<!-- <script>
+  // Load navbar
+  fetch('navbar.html')
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('navbar-container').innerHTML = data;
+      
+      // Load navbar CSS
+      const link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = 'navbar.css';
+      document.head.appendChild(link);
+      
+      // Load search functionality
+      const script = document.createElement('script');
+      script.src = 'search.js';
+      document.body.appendChild(script);
+    });
+</script> -->
+</body>
+</html>
+

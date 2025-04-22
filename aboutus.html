@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Kantumruy+Pro:ital,wght@0,100..700;1,100..700&family=Noto+Sans+Gurmukhi:wght@100..900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Kantumruy+Pro:ital,wght@0,100..700;1,100..700&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Noto+Sans+Gurmukhi:wght@100..900&display=swap');
+        body {
+    margin: 0;
+    
+    background-color: #f9fafb;
+    color: #333;
+}
+p{
+    font-family: 'Kantumruy Pro', sans-serif;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.logo img {
+    height: 30px;
+    margin-right: 0.5rem;
+}
+
+.nav-links a {
+    margin-left: 1.5rem;
+    text-decoration: none;
+    color: #5856d6;
+    font-size: 0.95rem;
+}
+
+.nav-links a:hover {
+    text-decoration: underline;
+}
+
+/* Main Content */
+.main-content {
+    padding: 2rem;
+}
+
+.about-section h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    color: #5856d6;
+}
+
+.about-card {
+    background-image: linear-gradient(to bottom-right,#5865d629,rgb(252,252,253));
+    padding: 1.5rem;
+    border-radius: 8px;
+    /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+    margin: 0 auto;
+    max-width: 800px;
+    line-height: 1.6;
+}
+
+/* Stats Section */
+/* Stats Section */
+.stats-section {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin: 2rem 0;
+    text-align: center;
+}
+
+/* Card Style for Stat Items */
+.stat-item.card {
+    background-image: linear-gradient(to bottom-right,#5865d629,rgb(252,252,253));
+    background-color: #5865d629;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    width: 20%;
+    transition: transform 0.3s ease-in-out;
+}
+
+.stat-item.card:hover {
+    transform: scale(1.05);
+}
+
+.stat-item h2 {
+    font-size: 2rem;
+    color: #5856d6;
+}
+
+.stat-item p {
+    margin-top: 0.5rem;
+    font-size: 1rem;
+    color: #666;
+}
+
+/* Leadership Section */
+.leadership-section {
+    text-align: center;
+    padding: 2rem;
+    background-color: #f7f8fa;
+}
+
+.team-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.team-card {
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.team-card:hover {
+    transform: translateY(-5px);
+}
+
+.team-card img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 1rem;
+}
+
+.team-card h3 {
+    font-size: 1.25rem;
+    margin: 0.5rem 0;
+    color: #333;
+}
+
+.team-card p {
+    margin: 0.5rem 0;
+    color: #666;
+    font-size: 0.95rem;
+}
+
+.social-icons {
+    margin-top: 1rem;
+}
+
+.social-icons a {
+    margin: 0 0.5rem;
+    text-decoration: none;
+    color: inherit;
+}
+
+.social-icons img {
+    width: 20px;
+    height: 20px;
+    border-radius: 0;
+}
+
+
+footer {
+  background: linear-gradient(to bottom, #e6e6fa, #ffffff);
+  padding: 60px 0;
+  font-family: Arial, sans-serif;
+  min-height: 250px;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding: 0 20px;
+}
+
+.footer-section {
+  flex: 1;
+  min-width: 250px;
+  margin-bottom: 20px;
+}
+
+.footer-section h3 {
+  font-size: 18px;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 20px;
+}
+
+.footer-section ul li a {
+  text-decoration: none;
+  color: #555;
+  transition: color 0.3s;
+}
+
+.footer-section ul li a:hover {
+  color: #000;
+}
+
+.social-icons {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.social-icons img {
+  width: 32px;
+  height: 32px;
+  transition: transform 0.3s;
+}
+
+.social-icons img:hover {
+  transform: scale(1.1);
+}
+
+.store-badges {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
+.store-badges img {
+  height: 40px;
+  width: auto;
+  transition: transform 0.3s;
+}
+
+.store-badges img:hover {
+  transform: scale(1.05);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+  .search-bar input {
+    width: 180px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header,
+  .service-card,
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .search-bar {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .search-bar input {
+    width: 100%;
+  }
+
+  .hero-text h1 {
+    font-size: 2rem;
+  }
+
+  .hero-text h3 {
+    font-size: 1.4rem;
+  }
+
+  .service-card img {
+    width: 100px;
+  }
+
+  .store-badges {
+    justify-content: center;
+  }
+
+  .footer-section {
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-text h1 {
+    font-size: 1.6rem;
+  }
+
+  .hero-text h3 {
+    font-size: 1.2rem;
+  }
+
+  .service-info h4 {
+    font-size: 1rem;
+  }
+
+  .service-info p {
+    font-size: 0.9rem;
+  }
+
+  .service-info button {
+    font-size: 0.9rem;
+  }
+
+  .store-badges img {
+    height: 35px;
+  }
+}
+@media (max-width: 768px) {
+  .social-icons {
+    justify-content: center;
+  }
+  .store-badges {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .social-icons {
+    justify-content: center;
+  }
+  .store-badges {
+    justify-content: center;
+  }
+}
+
+
+/* Locations */
+.locations h4 {
+    font-size: 1.2rem;
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #000;
+}
+
+.region {
+    margin-bottom: 1rem;
+}
+
+.region h5 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: #555;
+}
+
+.region p {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #666;
+}
+
+/* Bottom Links */
+.bottom-links {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+}
+
+.social-media,
+.app-links {
+    display: flex;
+    gap: 1rem;
+}
+
+.social-media a,
+.app-links a {
+    font-size: 0.9rem;
+}
+    </style>
+</head>
+<body>
+   
+    <main class="main-content">
+        <section class="about-section">
+            <h1>About Us</h1>
+            <div class="about-card">
+                <h2>Who we are</h2>
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum, consequatur eos iusto laboriosam, modi nobis ad eius odio eligendi eaque dicta excepturi, laborum nostrum saepe corrupti. Eius assumenda ipsam libero quod praesentium molestias sed mollitia magnam doloremque, consequatur deleniti totam enim animi tempore autem. Ducimus magni ut dolorem fuga, atque quam ea libero, tempora, dicta sint blanditiis. Nostrum beatae, error aliquam adipisci soluta, vel possimus illum ullam eligendi, doloribus illo.
+                </p>
+            </div>
+        </section>
+        <section class="stats-section">
+            <div class="stat-item card">
+                <h2>50,00+</h2>
+                <p>Trained Professionals</p>
+            </div>
+            <div class="stat-item card">
+                <h2>12</h2>
+                <p>Cities</p>
+            </div>
+            <div class="stat-item card">
+                <h2>12 Million+</h2>
+                <p>Happy Customers</p>
+            </div>
+            <div class="stat-item card">
+                <h2>1</h2>
+                <p>Countries</p>
+            </div>
+        </section>
+       
+        <section class="leadership-section">
+            <h2>Our Leadership Team</h2>
+            <div class="team-container">
+                <div class="team-card">
+                    <img src="https://res.cloudinary.com/urbanclap/image/upload/v1500957301/web-assets/about-page/abhiraj.jpg" alt="Abhiraj Bhal">
+                    <h3>Abhiraj Bhal</h3>
+                    <p>CEO & Co-founder</p>
+                    <div class="social-icons">
+                        <a href="#"><img src="https://cdn-icons-png.flaticon.com/128/174/174857.png" alt="LinkedIn"></a>
+                        <a href="#"><img src="https://img.freepik.com/free-vector/new-2023-twitter-logo-x-icon-design_1017-45418.jpg?semt=ais_hybrid" alt="Twitter"></a>
+                    </div>
+                </div>
+                <div class="team-card">
+                    <img src="https://res.cloudinary.com/urbanclap/image/upload/images/growth/home-screen/1698652667304-d98242.jpeg" alt="Raghav Chandra">
+                    <h3>Raghav Chandra</h3>
+                    <p>CPTO & Co-founder</p>
+                    <div class="social-icons">
+                        <a href="#"><img src="https://cdn-icons-png.flaticon.com/128/174/174857.png" alt="LinkedIn"></a>
+                        <a href="#"><img src="https://img.freepik.com/free-vector/new-2023-twitter-logo-x-icon-design_1017-45418.jpg?semt=ais_hybrid" alt="Twitter"></a>
+                    </div>
+                </div>
+                <div class="team-card">
+                    <img src="https://res.cloudinary.com/urbanclap/image/upload/v1501596542/web-assets/about-page/varun.jpg" alt="Varun Khaitan">
+                    <h3>Varun Khaitan</h3>
+                    <p>COO & Co-founder</p>
+                    <div class="social-icons">
+                        <a href="#"><img src="https://cdn-icons-png.flaticon.com/128/174/174857.png" alt="LinkedIn"></a>
+                        <a href="#"><img src="https://img.freepik.com/free-vector/new-2023-twitter-logo-x-icon-design_1017-45418.jpg?semt=ais_hybrid" alt="Twitter"></a>
+                    </div>
+                </div>
+                </div>
+                </section>
+    </main>
+    <footer>
+      <div class="footer-container">
+          <div class="footer-section company">
+              <h3>Company</h3>
+              <ul>
+                  <li><a href="aboutus.html">About us</a></li>
+                  <li><a href="termscond.html">Terms & Conditions</a></li>
+                  <li><a href="antidis.html">Anti-discrimination policy</a></li>
+                  <li><a href="#">Careers</a></li>
+              </ul>
+          </div>
+  
+          <div class="footer-section customer">
+              <h3>For Customer</h3>
+              <ul>
+                  <li><a href="#title">PrimeConnect reviews</a></li>
+                  <li><a href="contactus.html">Contact us</a></li>
+                  <li><a href="privacypolicy.html">Privacy policy</a></li>
+              </ul>
+          </div>
+          <div class="footer-section customer">
+              <h3>For Partners</h3>
+              <ul>
+                  <li><a href="servicepro.html">Register as a professional</a></li>
+                 
+              </ul>
+          </div>
+  
+          <div class="footer-section social">
+            <h3>Social Links</h3>
+            <div class="social-icons">
+              <a href="#"><img src="https://cdn2.iconfinder.com/data/icons/social-icons-33/128/Instagram-128.png" alt="Instagram"></a>
+              <a href="#"><img src="https://cdn3.iconfinder.com/data/icons/social-media-black-white-2/512/BW_Twitter_glyph_svg-128.png"alt="Twitter"></a>
+             <a href="#"><img src="https://cdn2.iconfinder.com/data/icons/social-media-applications/64/social_media_applications_14-linkedin-128.png" alt="LinkedIn"></a>
+             <a href="#"><img src="https://cdn3.iconfinder.com/data/icons/logos-brands-3/24/logo_brand_brands_logos_playstore_google-128.png" alt="Play Store"></a>
+            </div>
+            
+          </div>
+      </div>
+  </footer>
+</body>
+</html>
+
+

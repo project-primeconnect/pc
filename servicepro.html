@@ -1,0 +1,230 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendor Onboarding</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+             line-height: 1.6;
+  
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            font-weight: bold;
+        }
+        input, select, textarea {
+            width: 97%;
+            padding: 8px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #5856d6;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            display: block;
+            margin: 10px auto;
+            text-align: center;
+            width: 30%;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #5856d6;
+        }
+        .step {
+            display: none;
+        }
+        .active {
+            display: block;
+        }
+        .dropdown {
+            position: relative;
+            width: 100%;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        .dropdown .dropdown-btn {
+            background: white;
+            border: 1px solid #ccc;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 4px;
+        }
+        .dropdown .dropdown-list {
+            display: none;
+            position: absolute;
+            width: 100%;
+            background: white;
+            border: 1px solid #ccc;
+            border-top: none;
+            max-height: 150px;
+            overflow-y: auto;
+            z-index: 10;
+        }
+        .dropdown .dropdown-list div {
+            padding: 10px;
+            cursor: pointer;
+        }
+        .dropdown .dropdown-list div:hover {
+            background: #f1f1f1;
+        }
+        .h1color {
+            color: #5856d6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="h1color">Prime Connect</h1>
+        <form id="vendorForm">
+            <div class="step active" id="step1">
+                <label for="name">Business/Individual Name:</label>
+                <input type="text" id="name" required>
+                <label for="email">Enter Your Email Id</label>
+                <input type="email" id="email" required>
+                <label for="phone">Phone:</label>
+                <input type="tel" id="phone" required>
+                <label for="address">Address:</label>
+                <input type="text" id="address" placeholder="Enter your address" required>
+                <label for="availability">Available Days:</label>
+                <input type="text" id="availability" placeholder="e.g., Monday to Friday">
+                <label for="timing">Working Hours:</label>
+                <input type="text" id="timing" placeholder="e.g., 9 AM - 6 PM">
+                <label for="experience">Service Experience (in years):</label>
+                <input type="number" id="experience" min="0" placeholder="Enter years of experience" required>
+
+                <label>Services Offered:</label>
+                <div class="dropdown" onclick="toggleDropdown('service-list')">
+                    <div class="dropdown-btn" id="service-btn">Select Services ▼</div>
+                    <div class="dropdown-list" id="service-list">
+                        <div onclick="toggleSelection('service-btn', 'Plumbing')">Plumbing</div>
+                        <div onclick="toggleSelection('service-btn', 'Electrical')">Electrical</div>
+                        <div onclick="toggleSelection('service-btn', 'Beauty')">Beauty</div>
+                        <div onclick="toggleSelection('service-btn', 'Tutoring')">Tutoring</div>
+                    </div>
+                </div>
+
+                <label>Select your Location Services</label>
+                <div class="dropdown" onclick="toggleDropdown('location-list')">
+                    <div class="dropdown-btn" id="location-btn">Select Locations ▼</div>
+                    <div class="dropdown-list" id="location-list">
+                        <div onclick="toggleSelection('location-btn', 'LB Nagar')">LB Nagar</div>
+                        <div onclick="toggleSelection('location-btn', 'Dilsukhnagar')">Dilsukhnagar</div>
+                        <div onclick="toggleSelection('location-btn', 'Mehdipatnam')">Mehdipatnam</div>
+                        <div onclick="toggleSelection('location-btn', 'Ameerpet')">Ameerpet</div>
+                        <div onclick="toggleSelection('location-btn', 'Madhapur')">Madhapur</div>
+                        <div onclick="toggleSelection('location-btn', 'Gachibowli')">Gachibowli</div>
+                        <div onclick="toggleSelection('location-btn', 'Kukatpally')">Kukatpally</div>
+                        <div onclick="toggleSelection('location-btn', 'Banjara Hills')">Banjara Hills</div>
+                        <div onclick="toggleSelection('location-btn', 'Begumpet')">Begumpet</div>
+                        <div onclick="toggleSelection('location-btn', 'Miyapur')">Miyapur</div>
+                    </div>
+                </div>
+
+                <button type="button" onclick="nextStep(2)">Next</button>
+            </div>
+
+            <div class="step" id="step2">
+                <!-- <h3>Step 2: Pricing Structure & Required Documents</h3> -->
+                <!-- <label for="pricing">Pricing Details:</label>
+                <textarea id="pricing" placeholder="Describe your pricing structure..."></textarea> -->
+
+                <label>ID Proof (Aadhaar, PAN, or Passport for individuals):</label>
+                <input type="file" id="idProof">
+
+                <label>Business Registration Certificate (If applicable):</label>
+                <input type="file" id="businessCert">
+
+                <label>Service Experience/Portfolio (Photos, Reviews, Work Samples):</label>
+                <input type="file" id="portfolio" multiple>
+
+                <label>Customer References (Optional):</label>
+                <input type="file" id="references">
+
+                <label>Certifications/Licenses (For regulated professions like electricians, tutors, and beauticians):</label>
+                <input type="file" id="certifications">
+
+                <button type="button" onclick="prevStep(1)">Back</button>
+                <button type="button" onclick="nextStep(3)">Next</button>
+     
+            </div>
+            <div class="step" id="step3">
+                <h3>Step 3: Agreement (Terms & Conditions)</h3>
+            
+                <label for="commission">Commission Percentage (if applicable):</label>
+                <input type="text" id="commission" placeholder="e.g., 10% per service booking">
+            
+                <label for="paymentTerms">Payment Terms:</label>
+                <textarea id="paymentTerms" placeholder="e.g., 50% advance, 50% post-service | UPI/Bank Transfer"></textarea>
+            
+                <label for="cancellationPolicy">Cancellation & Refund Policies:</label>
+                <textarea id="cancellationPolicy" placeholder="Describe your cancellation & refund terms"></textarea>
+            
+                <label for="qualityStandards">Quality & Timeliness Standards:</label>
+                <textarea id="qualityStandards" placeholder="e.g., Ensure timely arrival, use of quality materials, etc."></textarea>
+            
+                <label for="nonCompete">Non-Compete Clause (Optional):</label>
+                <textarea id="nonCompete" placeholder="Mention if exclusivity is required or leave blank if not applicable"></textarea>
+            
+                <label for="legalClause">Legal Compliance & Liability Clause:</label>
+                <textarea id="legalClause" placeholder="Mention compliance with local laws, vendor responsibilities, liabilities, etc."></textarea>
+            
+                <button type="button" onclick="prevStep(2)">Back</button>
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function toggleDropdown(listId) {
+            let dropdown = document.getElementById(listId);
+            dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+        }
+        function toggleSelection(btnId, value) {
+            let btn = document.getElementById(btnId);
+            let currentSelection = btn.innerText.replace(" ▼", "").split(", ");
+            if (currentSelection[0] === "Select Services" || currentSelection[0] === "Select Locations") {
+                currentSelection = [];
+            }
+            if (currentSelection.includes(value)) {
+                currentSelection = currentSelection.filter(item => item !== value);
+            } else {
+                currentSelection.push(value);
+            }
+            btn.innerText = currentSelection.length > 0 ? currentSelection.join(", ") + " ▼" : (btnId === "service-btn" ? "Select Services ▼" : "Select Locations ▼");
+            toggleDropdown(btnId === "service-btn" ? "service-list" : "location-list");
+        }
+
+        let currentStep = 1;
+        function nextStep(step) {
+            document.getElementById(`step${currentStep}`).classList.remove("active");
+            document.getElementById(`step${step}`).classList.add("active");
+            currentStep = step;
+        }
+        function prevStep(step) {
+            document.getElementById(`step${currentStep}`).classList.remove("active");
+            document.getElementById(`step${step}`).classList.add("active");
+            currentStep = step;
+        }
+    </script>
+</body>
+</html>

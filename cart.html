@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart</title>
+    <link rel="stylesheet" href="common.css">
+    <style>
+        .cart-items {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cart-items h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-item h3 {
+            font-size: 18px;
+            margin: 0;
+            flex: 2;
+        }
+
+        .cart-item p {
+            font-size: 16px;
+            color: #5856D6;
+            font-weight: bold;
+            margin: 0;
+            flex: 1;
+            text-align: center;
+        }
+        .quantity-controls {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    justify-content: flex-end;
+}
+
+    .quantity-btn {
+        background-color: #f0f0f0; /* Light grey background */
+        color: #5856D6; /* Purple color for the +/- symbols */
+        border: none;
+        width: 30px;
+        height: 30px;
+        border-radius: 4px; /* Square with slight rounding */
+        font-size: 16px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 5px;
+        transition: all 0.2s ease;
+    }
+
+    .quantity-btn:hover {
+        background-color: #e0e0e0; /* Slightly darker grey on hover */
+        color: #4a45ba; /* Darker purple on hover */
+    }
+
+    .quantity {
+        font-size: 16px;
+        margin: 0 10px;
+        min-width: 20px;
+        text-align: center;
+    }
+
+
+        .payment-summary {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+        }
+
+        .payment-summary h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .summary-row.total {
+            font-weight: bold;
+            border-bottom: none;
+            font-size: 18px;
+        }
+
+        .checkout-btn-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        #checkout-btn {
+            background-color: #5856D6;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        #checkout-btn:hover {
+            background-color: #4a45ba;
+        }
+        
+        .empty-cart {
+            text-align: center;
+            padding: 30px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <section class="cart-items">
+        <h2>Your Cart</h2>
+        <div id="cart-container"></div>
+        
+        <div class="payment-summary">
+            <h3>Payment summary</h3>
+            <div class="summary-row">
+                <span>Item total</span>
+                <span>₹<span id="item-total">0</span></span>
+            </div>
+            <div class="summary-row">
+                <span>GST (18%)</span>
+                <span>₹<span id="gst-amount">0</span></span>
+            </div>
+            <div class="summary-row">
+                <span>Platform fee</span>
+                <span>₹10</span>
+            </div>
+            <div class="summary-row">
+                <span>Delivery fee</span>
+                <span>₹100</span>
+            </div>
+            <div class="summary-row total">
+                <span>Total</span>
+                <span>₹<span id="total-amount">0</span></span>
+            </div>
+        </div>
+        
+        <div class="checkout-btn-container">
+            <button id="checkout-btn" onclick="window.location.href='checkout.html'">Proceed to Checkout</button>
+        </div>
+    </section>
+
+    <script>
+        // Initialize cart if it doesn't exist
+        if (!localStorage.getItem('cart')) {
+            localStorage.setItem('cart', JSON.stringify([]));
+        }
+
+        // Display cart items
+        function displayCartItems() {
+            const cart = JSON.parse(localStorage.getItem('cart'));
+            const cartContainer = document.getElementById('cart-container');
+            const itemTotalElement = document.getElementById('item-total');
+            const gstAmountElement = document.getElementById('gst-amount');
+            const totalAmountElement = document.getElementById('total-amount');
+            
+            if (cart.length === 0) {
+                cartContainer.innerHTML = '<p class="empty-cart">Your cart is empty</p>';
+                itemTotalElement.textContent = '0';
+                gstAmountElement.textContent = '0';
+                totalAmountElement.textContent = '0';
+                return;
+            }
+            
+            // Group items by name and calculate quantities
+            const groupedItems = {};
+            cart.forEach(item => {
+                if (!groupedItems[item.name]) {
+                    groupedItems[item.name] = {
+                        price: item.price,
+                        quantity: 1
+                    };
+                } else {
+                    groupedItems[item.name].quantity++;
+                }
+            });
+            
+            let itemTotal = 0;
+            cartContainer.innerHTML = '';
+            
+            Object.keys(groupedItems).forEach(name => {
+                const item = groupedItems[name];
+                const itemElement = document.createElement('div');
+                itemElement.className = 'cart-item';
+                
+                itemElement.innerHTML = `
+                    <h3>${name}</h3>
+                    <p>₹${item.price}</p>
+                    <div class="quantity-controls">
+                        <button class="quantity-btn minus" data-name="${name}">-</button>
+                        <span class="quantity">${item.quantity}</span>
+                        <button class="quantity-btn plus" data-name="${name}">+</button>
+                    </div>
+                `;
+                
+                cartContainer.appendChild(itemElement);
+                itemTotal += item.price * item.quantity;
+            });
+            
+            // Add event listeners to quantity buttons
+            document.querySelectorAll('.quantity-btn.plus').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const itemName = this.getAttribute('data-name');
+                    addToCart(itemName, groupedItems[itemName].price);
+                });
+            });
+            
+            document.querySelectorAll('.quantity-btn.minus').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const itemName = this.getAttribute('data-name');
+                    removeFromCart(itemName);
+                });
+            });
+            
+            // Calculate GST (18% of item total)
+            const gstAmount = itemTotal * 0.18;
+            const platformFee = 100;
+            const deliveryFee = 10;
+            const totalAmount = itemTotal + gstAmount + platformFee + deliveryFee;
+            
+            // Update all amounts
+            itemTotalElement.textContent = itemTotal.toFixed(2);
+            gstAmountElement.textContent = gstAmount.toFixed(2);
+            totalAmountElement.textContent = totalAmount.toFixed(2);
+        }
+       
+        // Remove one quantity of item from cart
+        function removeFromCart(name) {
+            const cart = JSON.parse(localStorage.getItem('cart'));
+            
+            // Find the last occurrence of the item and remove it
+            for (let i = cart.length - 1; i >= 0; i--) {
+                if (cart[i].name === name) {
+                    cart.splice(i, 1);
+                    break;
+                }
+            }
+            
+            localStorage.setItem('cart', JSON.stringify(cart));
+            displayCartItems();
+        }
+        
+        // Add item to cart
+        function addToCart(name, price) {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            
+            // Ensure price is properly converted to number
+            const numericPrice = typeof price === 'string' ? 
+                                parseFloat(price.replace(/[^0-9.]/g, '')) : 
+                                Number(price);
+            
+            cart.push({ 
+                name, 
+                price: numericPrice 
+            });
+            
+            localStorage.setItem('cart', JSON.stringify(cart));
+            displayCartItems();
+        }
+        
+        // Initialize cart display
+        document.addEventListener('DOMContentLoaded', function() {
+            displayCartItems();
+        });
+    </script>
+</body>
+</html>

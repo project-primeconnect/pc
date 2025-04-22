@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
+    <link rel="stylesheet" href="common.css">
+</head>
+<body>
+    <section class="payment-container">
+        <h2>Select a Payment Method</h2>
+        <div class="checkout-steps">
+            <div class="step completed" onclick="navigateToStep(1)">1. Shipping Information</div>
+            <div class="step active" onclick="navigateToStep(2)">2. Payment</div>
+            <div class="step" onclick="navigateToStep(3)">3. Confirmation</div>
+        </div>
+        
+        <div class="payment-methods">
+            <div class="payment-method active" onclick="selectPaymentMethod('upi')">
+                <img src="https://cdn-icons-png.flaticon.com/512/825/825454.png" alt="UPI">
+                <div class="payment-text">UPI</div>
+            </div>
+            
+            <div class="payment-method" onclick="selectPaymentMethod('card')">
+                <img src="https://cdn-icons-png.flaticon.com/512/196/196578.png" alt="Card">
+                <div class="payment-text">Credit/Debit Card</div>
+            </div>
+            
+            <div class="payment-method" onclick="selectPaymentMethod('wallet')">
+                <img src="https://cdn-icons-png.flaticon.com/512/7613/7613503.png" alt="Wallet">
+                <div class="payment-text">Wallet</div>
+            </div>
+            
+            <div class="payment-method" onclick="selectPaymentMethod('cod')">
+                <img src="https://cdn-icons-png.flaticon.com/512/2331/2331970.png" alt="Cash on Delivery">
+                <div class="payment-text">Cash on Delivery</div>
+            </div>
+            <div class="payment-method" onclick="selectPaymentMethod('card')">
+                <img src="https://cdn-icons-png.flaticon.com/128/4519/4519104.png" alt="Card">
+                <div class="payment-text">Net Banking</div>
+            </div>
+        </div>
+        
+        <button class="proceed-button" type="button" onclick="proceedToPay()">
+            Proceed to Pay (<span id="payment-amount">₹0</span>)
+        </button>
+    </section>
+
+    <script src="script.js"></script>
+   
+      <script>
+        console.log('Cart before payment:', JSON.parse(localStorage.getItem('cart')));
+        console.log('Redirecting to confirmation page');
+    let selectedPaymentMethod = 'upi';
+    
+    function selectPaymentMethod(method) {
+        selectedPaymentMethod = method;
+        const methods = document.querySelectorAll('.payment-method');
+        methods.forEach(m => m.classList.remove('active'));
+        event.currentTarget.classList.add('active');
+    }
+    
+    function calculateTotal() {
+        const cart = JSON.parse(localStorage.getItem('cart'));
+        
+        if (!cart || cart.length === 0) {
+            window.location.href = 'cart.html';
+            return 0;
+        }
+        
+        // Calculate item total
+        let itemTotal = 0;
+        cart.forEach(item => {
+            itemTotal += item.price;
+        });
+        
+        // Calculate GST (18% of item total)
+        const gstAmount = itemTotal * 0.18;
+        const platformFee = 100;
+        const deliveryFee = 10;
+        
+        // Calculate final total
+        const totalAmount = itemTotal + gstAmount + platformFee + deliveryFee;
+        
+        return totalAmount;
+    }
+    
+    function updatePaymentAmount() {
+        const total = calculateTotal();
+        document.getElementById('payment-amount').textContent = `₹${total.toFixed(2)}`;
+    }
+    
+    // function proceedToPay() {
+    //     localStorage.setItem('selectedPaymentMethod', selectedPaymentMethod);
+    //     window.location.href = 'confirmation.html';
+    // }
+    function proceedToPay() {
+    // Check if cart exists and has items
+    const cart = JSON.parse(localStorage.getItem('cart'));
+    if (!cart || cart.length === 0) {
+        alert('Your cart is empty! Redirecting to cart page.');
+        window.location.href = 'cart.html';
+        return;
+    }
+    
+    // Save payment method
+    localStorage.setItem('selectedPaymentMethod', selectedPaymentMethod);
+    
+    // Generate a simple order number (you can make this more sophisticated)
+    const orderNumber = 'ORD-' + Date.now();
+    localStorage.setItem('orderNumber', orderNumber);
+    
+    // Redirect to confirmation page
+    window.location.href = 'confirmation.html';
+}
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        updatePaymentAmount();
+    });
+    function navigateToStep(stepNumber) {
+    // Determine current page
+    const currentPage = window.location.pathname.split('/').pop();
+    
+    // Don't navigate if clicking the current active step
+    if ((currentPage === 'checkout.html' && stepNumber === 1) ||
+        (currentPage === 'payment.html' && stepNumber === 2) ||
+        (currentPage === 'confirmation.html' && stepNumber === 3)) {
+        return;
+    }
+    
+    // Navigation logic
+    switch(stepNumber) {
+        case 1:
+            // Only allow going back to checkout from payment
+            if (currentPage === 'payment.html' || currentPage === 'confirmation.html') {
+                window.location.href = 'checkout.html';
+            }
+            break;
+        case 2:
+            // Only allow going to payment from checkout or back from confirmation
+            if (currentPage === 'checkout.html') {
+                // Validate form before proceeding
+                const form = document.getElementById('checkout-form');
+                if (form.checkValidity()) {
+                    proceedToPayment(); // Use your existing function
+                } else {
+                    form.reportValidity();
+                }
+            } else if (currentPage === 'confirmation.html') {
+                window.location.href = 'payment.html';
+            }
+            break;
+        case 3:
+            // Only allow going to confirmation from payment
+            if (currentPage === 'payment.html') {
+                proceedToPay(); // Use your existing function
+            }
+            break;
+    }
+}
+</script>
+</body>
+</html>
